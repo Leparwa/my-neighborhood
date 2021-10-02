@@ -8,18 +8,13 @@ class Neighborhood(models.Model):
     location = models.CharField(max_length=39)
     occupants = models.IntegerField()
     admin = models.ForeignKey(User, on_delete=models.CASCADE)
-
-
-
 class Business(models.Model):
     business_name = models.CharField(max_length=100)
     business_email = models.EmailField(max_length=39)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     neighborhood = models.ForeignKey(Neighborhood, on_delete=models.SET_NULL, null=True, blank=True)
-
-
 class Profile(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.OneToOneField(User, on_delete=models.CASCADE)
     email = models.EmailField(max_length=39)
     occupants = models.IntegerField()
     neighborhood = models.ForeignKey(Neighborhood, on_delete=models.CASCADE)
