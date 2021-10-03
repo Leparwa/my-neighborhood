@@ -1,14 +1,16 @@
 from django.shortcuts import render, redirect
-from rest_framework import generics, serializers
 from .models import Business, Profile, Neighborhood
-from .forms import NeighboorhoodForm, BusinesForm, ProfileForm
-
+from .forms import NeighboorhoodForm, BusinesForm, ProfileForm, SignUpForm
+from django.contrib.auth import login
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.core.exceptions import BadRequest
 
 def home(request):
-    neighborhood= Neighborhood.objects.all()
-    profiles = Profile.objects.all().exclude(user=request.user)
-    return render(request, 'ig/home.html', context ={'images': neighborhood, 'profiles':profiles })
-
+    neighborhoods= Neighborhood.objects.all()
+    profiles = Profile.objects.all()
+    return render(request, 'home.html', context ={'neighborhoods': neighborhoods, 'profiles':profiles })
+@login_required(login_url='/accounts/login/')
 def new_neighborhood(request):
     if request.method == 'POST':
         neighborhood_form = NeighboorhoodForm(request.POST)
@@ -20,7 +22,11 @@ def new_neighborhood(request):
     else:
         form = NeighboorhoodForm()
     return render(request, 'neighborhood.html', {'form': form})
+@login_required(login_url='/accounts/login/')
+def profile(request):
     
+    return render(request, 'profile.html')
+
 def new_business(request):
     if request.method == 'POST':
         business_form = BusinesForm(request.POST)
@@ -31,4 +37,21 @@ def new_business(request):
             return redirect('home')
     else:
         form = BusinesForm()
-    return render(request, 'neighborhood.html', {'form': form})
+    return render(request, 'business.html', {'form': form})
+def register(request):
+    if request.method == "POST":
+        form = SignUpForm(data=request.POST)
+        if form.is_valid():
+            try:
+                user = form.save()
+                res = login(request, user)
+                print(res)
+            except BadRequest as er:
+                messages.error(request, er)
+                return redirect('register')
+            messages.success(request, "registered successfully")
+            return redirect('profile')
+    else:
+        form = SignUpForm()
+    context ={"form":form} 
+    return render(request, "registration/register.html", context)

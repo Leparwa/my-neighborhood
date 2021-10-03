@@ -1,7 +1,26 @@
 from django import forms
 from .models import Profile, Business, Neighborhood
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
 
+class LoginForm(forms.ModelForm):
+    email = forms.EmailField(max_length=254, help_text='Required. enter your account email address.', required=True)
+    password = forms.CharField(label='Enter password', widget=forms.PasswordInput, required=True)
+    class Meta:
+        model = User
+        fields = ('email', 'password',)
+
+class SignUpForm(UserCreationForm):
+    error_messages = {
+    'password_mismatch': "The two password fields didn't match.",
+    }
+    email = forms.EmailField(max_length=254, help_text='Required. enter a valid email address.', required=True)
+    password1 = forms.CharField(label='Enter password', required=True, widget=forms.PasswordInput, )
+    password2 = forms.CharField(label='Confirm password', widget=forms.PasswordInput, required=True,)
+    username = forms.CharField(help_text="Enter your user name", required=True, )
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'password1', 'password2', )
 class NeighboorhoodForm(forms.ModelForm):
     class Meta:
         model = Neighborhood
@@ -23,8 +42,6 @@ class BusinesForm(forms.ModelForm):
         }
 
 class ProfileForm(forms.ModelForm):
-    name = forms.TextInput(source='user.username')
-    email = forms.EmailInput(source='user.email')
     class Meta:
         model = Profile
         fields = ('name', 'email', 'neighborhood',)

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block nav %}  
+{% include 'nav.html' %}
+{% endblock %}
+{% block content %} 
+<div class="container mx-sm-0 mx-md-4 mt-5 pt-4">
+    <div class="row mx-md-5 mx-sm-0">
+        {% for neighborhood in neighborhoods %}
+        <div class="col-md-3">
+            <div class="card my-3" style="height: 150px;">
+                <div class="card-header">
+                    <small>{{ neighborhood.name }}</small>
+                </div>
+                <div class="card-body">
+                    <p>{{ neighborhood.location }} <br>
+                        {{ neighborhood.occupants }}
+                    </p> 
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

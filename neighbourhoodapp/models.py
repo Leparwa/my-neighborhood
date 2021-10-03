@@ -8,6 +8,9 @@ class Neighborhood(models.Model):
     location = models.CharField(max_length=39)
     occupants = models.IntegerField()
     admin = models.ForeignKey(User, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return self.name
 class Business(models.Model):
     business_name = models.CharField(max_length=100)
     business_email = models.EmailField(max_length=39)
@@ -17,7 +20,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=30)
     email = models.EmailField(max_length=39)
-    neighborhood = models.ForeignKey(Neighborhood, related_name='neighborhood', on_delete=models.CASCADE)
+    neighborhood = models.ForeignKey(Neighborhood, related_name='neighborhood', on_delete=models.SET_NULL, null=True)
 
     @receiver(post_save, sender=User)
     def create_user_profile(sender, instance, created, **kwargs):
@@ -26,4 +29,4 @@ class Profile(models.Model):
     
     @receiver(post_save, sender=User)
     def save_user_profile(sender, instance, **kwargs):
-        instance.user.save()
+        instance.profile.save()
