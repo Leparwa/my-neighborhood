@@ -8,8 +8,7 @@ from django.core.exceptions import BadRequest
 
 def home(request):
     neighborhoods= Neighborhood.objects.all()
-    profiles = Profile.objects.all()
-    return render(request, 'home.html', context ={'neighborhoods': neighborhoods, 'profiles':profiles })
+    return render(request, 'profile.html', context ={'neighborhoods': neighborhoods, 'profile':profile })
 @login_required(login_url='/accounts/login/')
 def new_neighborhood(request):
     if request.method == 'POST':
@@ -24,7 +23,6 @@ def new_neighborhood(request):
     return render(request, 'neighborhood.html', {'form': form})
 @login_required(login_url='/accounts/login/')
 def profile(request):
-    
     return render(request, 'profile.html')
 
 def new_business(request):

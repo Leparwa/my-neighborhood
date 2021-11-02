@@ -1,42 +1,24 @@
-/* body {
-    background-color: #743b3b;
-  } */
-  @media (min-width: 991.98px) {
-    main {
-      padding-left: 240px;
+
+
+#wrapper{padding:39px;}
+.navbar-expand-lg .navbar-nav.side-nav{flex-direction: column;}
+.card{margin-bottom: 15px; border-radius:0; box-shadow: 0 3px 5px rgba(0,0,0,.1); }
+.header-top{box-shadow: 0 3px 5px rgba(0,0,0,.1)}
+.leftmenutrigger, .navbar-nav li a .shortmenu{display: none}
+.card-title{
+     font-size: 28px
     }
-  }
-  
-  /* Sidebar */
-  .sidebar {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    padding: 60px 0 0; /* Height of navbar */
-    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
-    width: 160px;
-    z-index: 100;
-  }
-  
-  @media (max-width: 991.98px) {
-    .sidebar {
-      width: 30%;
-    }
-  }
-  .sidebar .active {
-    border-radius: 5px;
-    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
-  }
-  
-  .sidebar-sticky {
-    position: relative;
-    top: 0;
-    height: calc(100vh - 48px);
-    padding-top: 2.5rem;
-    overflow-x: hidden;
-    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-  }
+@media(min-width:992px) {
+#wrapper{padding: 60px; }
+.navbar-nav.side-nav:hover {left:0;}
+.side-nav li a {padding: 20px}
+.navbar-nav li a .shortmenu {float: right;display: block;opacity: 1}
+.navbar-nav.side-nav:hover li a .shortmenu{opacity: 0}
+.navbar-nav.side-nav{background: #585f66;box-shadow: 2px 1px 2px rgba(0,0,0,.1);position:fixed;top:56px;flex-direction: column!important;left:-140px;width:200px;overflow-y:auto;bottom:0;overflow-x:hidden;padding-bottom:40px}
+}
+.animate{-webkit-transition:all .2s ease-in-out;-moz-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out;-ms-transition:all .2s ease-in-out;transition:all .2s ease-in-out}
+.navbar-nav li a svg{font-size: 25px;float: left;margin: 0 10px 0 5px;}
+.side-nav li { border-bottom: 1px solid #50575d;}
   .form-control:focus {
     box-shadow: none;
     border-color: #BA68C8
